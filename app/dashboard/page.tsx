@@ -7,38 +7,43 @@ import Profile from '../Components/Dashboard/Profile';
 
 const Dashboard = () => {
     return (
-        <div className='grid grid-cols-1 md:grid-cols-12 w-full bg-amber-600 h-screen'>
-            <div className='col-span-10'>
-                <div>
-                    <div>
-                        <HeroTitle textSize="text-3xl md:text-4xl lg:text-5xl">Generate A Link</HeroTitle>
-                    </div>
-                    <div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full h-screen">
+
+            {/* MAIN CONTENT */}
+            <div className="lg:col-span-9">
+                <div className="flex flex-col gap-8">
+
+                    {/* Generate Link Section */}
+                    <div className="flex flex-col items-center gap-4">
+                        <HeroTitle textSize="text-3xl md:text-4xl lg:text-5xl">
+                            Generate A Link
+                        </HeroTitle>
+
                         <UrlInput />
                     </div>
-                </div>
-                <div>
+
+                    {/* Table */}
                     <DashboardTable />
                 </div>
             </div>
-            <div className='col-span-2'>
-                <div>
+
+            {/* SIDEBAR */}
+            <div className="lg:col-span-3 bg-red-700">
+                <div className="flex flex-col gap-6">
+
                     <Profile />
-                </div>
-                <div>
-                    <div>
-                        <DashboardCard count='5'>Total Link</DashboardCard>
-                    </div>
-                    <div>
-                        <DashboardCard count='5'>Total Link</DashboardCard>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4">
+                        <DashboardCard count="5">Total Link</DashboardCard>
+                        <DashboardCard count="5">Active Link</DashboardCard>
+                        <DashboardCard count="5">Total Click</DashboardCard>
                     </div>
 
-                    <div>
-                        <DashboardCard count='5'>Total Link</DashboardCard>
-                    </div>
                 </div>
             </div>
+
         </div>
+
     );
 };
 
