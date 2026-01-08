@@ -1,11 +1,11 @@
 "use client"
 
 import React, { useState } from 'react';
-import Logo from '../Components/Navbars/Logo';
-import NavLinks from '../Components/Navbars/NavLinks';
-import MobileMenu from '../Components/Navbars/MobileMenu';
-import MenuButton from '../Components/Navbars/MenuButton';
-import GuestNavLinks from '../Components/Navbars/GuestNavLink';
+import Logo from './Logo';
+import NavLinks from './NavLinks';
+import MobileMenu from './MobileMenu';
+import MenuButton from './MenuButton';
+import GuestNavLinks from './GuestNavLink';
 
 
 
@@ -15,7 +15,7 @@ import GuestNavLinks from '../Components/Navbars/GuestNavLink';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [user,setUser]=useState(true)
+  const [user,setUser]=useState(false)
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
