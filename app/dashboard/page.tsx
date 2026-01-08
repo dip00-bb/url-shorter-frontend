@@ -3,10 +3,11 @@ import DashboardTable from '../Components/Dashboard/DashboardTable';
 import DashboardCard from '../Components/Dashboard/DashboardCard';
 import UrlInput from '../Components/Hero/UrlInput';
 import HeroTitle from '../Components/Hero/HeroTitle';
+import Profile from '../Components/Dashboard/Profile';
 
 const Dashboard = () => {
     return (
-        <div className='grid grid-cols-12 w-full bg-amber-600 h-screen'>
+        <div className='grid grid-cols-1 md:grid-cols-12 w-full bg-amber-600 h-screen'>
             <div className='col-span-10'>
                 <div>
                     <div>
@@ -21,6 +22,9 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className='col-span-2'>
+                <div>
+                    <Profile />
+                </div>
                 <div>
                     <div>
                         <DashboardCard count='5'>Total Link</DashboardCard>
