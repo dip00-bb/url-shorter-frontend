@@ -4,17 +4,18 @@ import DashboardCard from '../Components/Dashboard/DashboardCard';
 import UrlInput from '../Components/Hero/UrlInput';
 import HeroTitle from '../Components/Hero/HeroTitle';
 import Profile from '../Components/Dashboard/Profile';
+import Button from '../Components/CommonButton/CommonButton';
 
 const Dashboard = () => {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full h-screen">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full px-4 py-10 bg-(--background-color)">
 
             {/* MAIN CONTENT */}
             <div className="lg:col-span-9">
-                <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-8 ">
 
                     {/* Generate Link Section */}
-                    <div className="flex flex-col items-center gap-4">
+                    <div className="flex flex-col items-center gap-4 border border-(--surface-border) h-[25vh] py-5 px-4">
                         <HeroTitle textSize="text-3xl md:text-4xl lg:text-5xl">
                             Generate A Link
                         </HeroTitle>
@@ -22,14 +23,14 @@ const Dashboard = () => {
                         <UrlInput />
                     </div>
 
-                    {/* Table */}
+
                     <DashboardTable />
                 </div>
             </div>
 
-            {/* SIDEBAR */}
-            <div className="lg:col-span-3 bg-red-700">
-                <div className="flex flex-col gap-6">
+
+            <div className="lg:col-span-3 py-3 px-4 border border-(--surface-border) ">
+                <div className="flex flex-col justify-between h-full">
 
                     <Profile />
 
@@ -39,6 +40,9 @@ const Dashboard = () => {
                         <DashboardCard count="5">Total Click</DashboardCard>
                     </div>
 
+                    <div>
+                        <Button>Logout</Button>
+                    </div>
                 </div>
             </div>
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 const Profile = () => {
     return (
-        <div>
+        <div className='space-y-6 '>
             <div className='flex items-center justify-center'>
                 <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
@@ -11,7 +11,7 @@ const Profile = () => {
                 </Avatar>
             </div>
 
-            <h1 className=' text-xl md:text-2xl lg:text-3xl text-center'>DIP CHONDO PARTHO</h1>
+            <h1 className=' text-xl md:text-2xl lg:text-3xl text-center text-(--primary)'>DIP CHONDO PARTHO</h1>
         </div>
     );
 };

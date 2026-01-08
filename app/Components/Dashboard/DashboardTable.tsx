@@ -99,11 +99,11 @@ const DashboardTable = () => {
 
   return (
     <div
-      className="overflow-x-auto border"
+      className="overflow-x-auto border px-4 py-3"
       style={{ borderColor: "var(--surface-border)" }}
     >
       <Table>
-        <TableCaption style={{ color: "white" }}>
+        <TableCaption className="text-white border border-(--surface-border) py-3">
           A list of your shortened URLs.
         </TableCaption>
 
