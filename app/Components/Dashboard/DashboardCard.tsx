@@ -1,21 +1,22 @@
+import { ReactNode } from "react";
 
 
 interface DashboardCardProps {
-    title: string;
+    children: ReactNode;
     count: string;
 }
 
 const DashboardCard = ({
-    title,
+    children,
     count,
 }: DashboardCardProps) => {
     return (
-        <div className="flex flex-col items-center text-center gap-3 px-4 ">
+        <div className="flex flex-col items-center text-center gap-3 px-4 py-1.5 border  border-(--surface-border)">
             <div>
-                <h3 className="text-lg font-semibold">{title}</h3>
+                <h3 className="text-lg font-semibold text-(--primary)">{children}</h3>
             </div>
 
-            <p className="text-sm text-gray-600 max-w-xs">
+            <p className="text-xl text-gray-600 max-w-xs ">
                 {count}
             </p>
         </div>

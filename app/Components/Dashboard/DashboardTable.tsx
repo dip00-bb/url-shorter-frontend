@@ -1,84 +1,107 @@
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import React from 'react';
+"use client"
+
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import React from "react";
+import { Copy, Trash2 } from "lucide-react";
+
+interface UrlItem {
+  originalUrl: string;
+  shortCode: string;
+  shortUrl: string;
+  clicks: number;
+  createdAt: string;
+}
 
 const DashboardTable = () => {
+  const urls: UrlItem[] = [
+    {
+      originalUrl: "https://example.com/very-long-url-1",
+      shortCode: "abc123",
+      shortUrl: "https://short.ly/abc123",
+      clicks: 12,
+      createdAt: "2026-01-08",
+    },
+    {
+      originalUrl: "https://example.com/very-long-url-2",
+      shortCode: "x7K9mP",
+      shortUrl: "https://short.ly/x7K9mP",
+      clicks: 8,
+      createdAt: "2026-01-07",
+    },
+    {
+      originalUrl: "https://example.com/very-long-url-3",
+      shortCode: "ZyT56L",
+      shortUrl: "https://short.ly/ZyT56L",
+      clicks: 25,
+      createdAt: "2026-01-06",
+    },
+  ];
 
-    const invoices = [
-        {
-            invoice: "INV001",
-            paymentStatus: "Paid",
-            totalAmount: "$250.00",
-            paymentMethod: "Credit Card",
-        },
-        {
-            invoice: "INV002",
-            paymentStatus: "Pending",
-            totalAmount: "$150.00",
-            paymentMethod: "PayPal",
-        },
-        {
-            invoice: "INV003",
-            paymentStatus: "Unpaid",
-            totalAmount: "$350.00",
-            paymentMethod: "Bank Transfer",
-        },
-        {
-            invoice: "INV004",
-            paymentStatus: "Paid",
-            totalAmount: "$450.00",
-            paymentMethod: "Credit Card",
-        },
-        {
-            invoice: "INV005",
-            paymentStatus: "Paid",
-            totalAmount: "$550.00",
-            paymentMethod: "PayPal",
-        },
-        {
-            invoice: "INV006",
-            paymentStatus: "Pending",
-            totalAmount: "$200.00",
-            paymentMethod: "Bank Transfer",
-        },
-        {
-            invoice: "INV007",
-            paymentStatus: "Unpaid",
-            totalAmount: "$300.00",
-            paymentMethod: "Credit Card",
-        },
-    ]
+  const handleCopy = (shortUrl: string) => {
+    navigator.clipboard.writeText(shortUrl);
+    alert("Copied to clipboard!"); // Replace with toast in real app
+  };
 
-    return (
-        <div>
-            <Table>
-                <TableCaption>A list of your recent invoices.</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-25">Invoice</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Method</TableHead>
-                        <TableHead className="text-right">Amount</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {invoices.map((invoice) => (
-                        <TableRow key={invoice.invoice}>
-                            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                            <TableCell>{invoice.paymentStatus}</TableCell>
-                            <TableCell>{invoice.paymentMethod}</TableCell>
-                            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TableCell colSpan={3}>Total</TableCell>
-                        <TableCell className="text-right">$2,500.00</TableCell>
-                    </TableRow>
-                </TableFooter>
-            </Table>
-        </div>
-    );
+  const handleDelete = (shortCode: string) => {
+    console.log("Delete URL:", shortCode);
+    // TODO: Call API to delete
+  };
+
+  return (
+    <div
+      className="overflow-x-auto border"
+      style={{ borderColor: "var(--surface-border)" }}
+    >
+      <Table>
+        <TableCaption style={{ color: "white" }}>
+          A list of your shortened URLs.
+        </TableCaption>
+
+        <TableHeader>
+          <TableRow style={{ backgroundColor: "var(--background-color)" }}>
+            <TableHead style={{ color: "var(--primary)" }}>Short Code</TableHead>
+            <TableHead style={{ color: "var(--primary)" }}>Short URL</TableHead>
+            <TableHead style={{ color: "var(--primary)" }}>Clicks</TableHead>
+            <TableHead style={{ color: "var(--primary)" }}>Created</TableHead>
+            <TableHead style={{ color: "var(--primary)" }}>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          {urls.map((url) => (
+            <TableRow
+              key={url.shortCode}
+              className="bg-(--background-color) h-15"
+            >
+              <TableCell className="text-(--primary)">{url.shortCode}</TableCell>
+              <TableCell className="flex items-center gap-2 text-(--primary)">
+                {url.shortUrl}
+                <button onClick={() => handleCopy(url.shortUrl)}>
+                  <Copy className="w-4 h-4 text-(--primary) cursor-pointer" />
+                </button>
+              </TableCell>
+              <TableCell className="text-(--primary)">{url.clicks}</TableCell>
+              <TableCell className="text-(--primary)">{url.createdAt}</TableCell>
+              <TableCell>
+                <button onClick={() => handleDelete(url.shortCode)}>
+                  <Trash2 className="w-4 h-4 text-red-500 cursor-pointer" />
+                </button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+
+      </Table>
+    </div>
+  );
 };
 
 export default DashboardTable;

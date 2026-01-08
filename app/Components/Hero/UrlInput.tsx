@@ -1,15 +1,16 @@
 "use client"
 
 import { useState } from "react";
+import Button from "../CommonButton/CommonButton";
 
 const UrlInput = () => {
   const [url, setUrl] = useState('');
 
-//   const handleGenerate = () => {
-//     if (url) {
-//       alert(`Generating short URL for: ${url}`);
-//     }
-//   };
+  const handleGenerate = () => {
+    if (url) {
+      alert(`Generating short URL for: ${url}`);
+    }
+  };
 
   return (
     <div className="w-full max-w-3xl mx-auto mb-6">
@@ -26,7 +27,7 @@ const UrlInput = () => {
           }}
 
         />
-        {/* <Button onClick={handleGenerate}>Generate</Button> */}
+        <Button onClick={handleGenerate}>Generate</Button>
       </div>
     </div>
   );
