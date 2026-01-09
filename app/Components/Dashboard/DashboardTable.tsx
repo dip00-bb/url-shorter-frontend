@@ -9,8 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useGetUserUrlQuery } from "@/lib/features/api/apiSlice";
 
 import { Copy, Trash2 } from "lucide-react";
+import useAuthContext from "../Hook/useAuthContext";
 
 interface UrlItem {
   originalUrl: string;
@@ -23,74 +25,6 @@ interface UrlItem {
 const DashboardTable = () => {
 
 
-
-
-  const urls: UrlItem[] = [
-    {
-      originalUrl: "https://example.com/very-long-url-1",
-      shortCode: "abcfgsdg123",
-      shortUrl: "https://short.ly/abc123",
-      clicks: 12,
-      createdAt: "2026-01-08",
-    },
-    {
-      originalUrl: "https://example.com/very-long-url-2",
-      shortCode: "x7Kgdsfg9mP",
-      shortUrl: "https://short.ly/x7K9mP",
-      clicks: 8,
-      createdAt: "2026-01-07",
-    },
-    {
-      originalUrl: "https://example.com/very-long-url-3",
-      shortCode: "ZydsfgsdT56sL",
-      shortUrl: "https://short.ly/ZyT56L",
-      clicks: 25,
-      createdAt: "2026-01-06",
-    },
-        {
-      originalUrl: "https://example.com/very-long-url-1",
-      shortCode: "abc1gsdgs2a3",
-      shortUrl: "https://short.ly/abc123",
-      clicks: 12,
-      createdAt: "2026-01-08",
-    },
-    {
-      originalUrl: "https://example.com/very-long-url-2",
-      shortCode: "x7K9mdgfsdgafP",
-      shortUrl: "https://short.ly/x7K9mP",
-      clicks: 8,
-      createdAt: "2026-01-07",
-    },
-    {
-      originalUrl: "https://example.com/very-long-url-3",
-      shortCode: "asfasfZyT56L",
-      shortUrl: "https://short.ly/ZyT56L",
-      clicks: 25,
-      createdAt: "2026-01-06",
-    },
-        {
-      originalUrl: "https://example.com/very-long-url-1",
-      shortCode: "abc1fasfas23",
-      shortUrl: "https://short.ly/abc123",
-      clicks: 12,
-      createdAt: "2026-01-08",
-    },
-    {
-      originalUrl: "https://example.com/very-long-url-2",
-      shortCode: "x7Kfdfds9mP",
-      shortUrl: "https://short.ly/x7K9mP",
-      clicks: 8,
-      createdAt: "2026-01-07",
-    },
-    {
-      originalUrl: "https://example.com/very-long-url-3",
-      shortCode: "ZyT5dfas6L",
-      shortUrl: "https://short.ly/ZyT56L",
-      clicks: 25,
-      createdAt: "2026-01-06",
-    },
-  ];
-
   const handleCopy = (shortUrl: string) => {
     navigator.clipboard.writeText(shortUrl);
     alert("Copied to clipboard!"); // Replace with toast in real app
@@ -101,9 +35,72 @@ const DashboardTable = () => {
     // TODO: Call API to delete
   };
 
+
+  const { user } = useAuthContext()
+  const userId = user?.id
+
+  const {
+    data,
+    isLoading,
+    isError,
+
+  } = useGetUserUrlQuery(userId!, {
+    skip: !userId,
+  });
+
+
+  const urls = data?.urls;
+
+
+
+  let content;
+  let tableContent;
+  if (isLoading) {
+    content = <>
+      <div>
+
+      </div>
+    </>
+  }
+
+  if (isError) {
+    content = <>
+      <div>
+        <p>Failed To Load data . Please Refresh</p>
+      </div>
+    </>
+  }
+
+  if (data) {
+    tableContent = <>
+      {urls?.map((url) => (
+        <TableRow
+          key={url.shortId}
+          className="bg-(--background-color) h-15"
+        >
+          <TableCell className="text-(--primary)">{url.shortId}</TableCell>
+          <TableCell className="flex items-center gap-2 text-(--primary)">
+            {`http://localhost:5000/${url.shortId}`}
+            <button onClick={() => handleCopy(`http://localhost:5000/${url.shortId}`)}>
+              <Copy className=" text-(--primary) cursor-pointer" />
+            </button>
+          </TableCell>
+          <TableCell className="text-(--primary) gap-2">{url.visitHistory.length}</TableCell>
+          <TableCell className="text-(--primary) gap-2">{url.createdAt}</TableCell>
+          <TableCell className="">
+            <button onClick={() => handleDelete(url.shortCode)}>
+              <Trash2 className=" text-red-500 cursor-pointer" />
+            </button>
+          </TableCell>
+        </TableRow>
+      ))}
+    </>
+  }
+
+
   return (
     <div
-      className="overflow-x-auto border px-4 py-3"
+      className="overflow-x-auto border px-4 py-3 "
       style={{ borderColor: "var(--surface-border)" }}
     >
       <Table>
@@ -122,27 +119,7 @@ const DashboardTable = () => {
         </TableHeader>
 
         <TableBody>
-          {urls.map((url) => (
-            <TableRow
-              key={url.shortCode}
-              className="bg-(--background-color) h-15"
-            >
-              <TableCell className="text-(--primary)">{url.shortCode}</TableCell>
-              <TableCell className="flex items-center gap-2 text-(--primary)">
-                {url.shortUrl}
-                <button onClick={() => handleCopy(url.shortUrl)}>
-                  <Copy className="w-4 h-4 text-(--primary) cursor-pointer" />
-                </button>
-              </TableCell>
-              <TableCell className="text-(--primary)">{url.clicks}</TableCell>
-              <TableCell className="text-(--primary)">{url.createdAt}</TableCell>
-              <TableCell>
-                <button onClick={() => handleDelete(url.shortCode)}>
-                  <Trash2 className="w-4 h-4 text-red-500 cursor-pointer" />
-                </button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {tableContent}
         </TableBody>
 
       </Table>

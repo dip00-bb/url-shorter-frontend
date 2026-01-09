@@ -98,7 +98,7 @@ const LoginForm = () => {
 
         <button
           type="submit"
-          className="w-full py-3 rounded-lg font-semibold transition-all"
+          className="w-full py-3 rounded-lg font-semibold transition-all cursor-pointer"
           style={{
             backgroundColor: "var(--primary)",
             color: "var(--background-color)",

@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 const Dashboard = () => {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full px-4 py-10 bg-(--background-color)">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 px-4 py-10 bg-(--background-color) w-full h-[80%]">
 
             {/* MAIN CONTENT */}
             <div className="lg:col-span-9">
