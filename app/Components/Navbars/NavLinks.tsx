@@ -2,6 +2,11 @@
 
 import Link from "next/link";
 import AuthButton from "./AuthButton";
+import { useHandleLogOutMutation } from "@/lib/features/api/apiSlice";
+import { use, useEffect } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "../Context/AuthContext";
 
 
 interface NavLinks {
@@ -9,9 +14,28 @@ interface NavLinks {
     onClick?: () => void
 }
 
+
 const NavLinks = ({ mobile = false, onClick }: NavLinks) => {
+
+
     const links = ['Home', 'Dashboard', 'CreateURL'];
 
+    const router = useRouter()
+    const [handleLogOut, { isError, isSuccess }] = useHandleLogOutMutation()
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Logout Successfull", { id: "logout" });
+            router.push('/login')
+
+        }
+        if (isError) {
+            toast.error("Something went wrong. Please try again.", { id: "logout" });
+        }
+    }, [isError, isSuccess, router])
+    const handleUserLogOut = async () => {
+        await handleLogOut().unwrap()
+    }
     return (
         <div className={mobile ? 'flex flex-col space-y-4' : 'hidden md:flex items-center space-x-8'}>
             {links.map((link) => (
@@ -27,7 +51,7 @@ const NavLinks = ({ mobile = false, onClick }: NavLinks) => {
                 </div>
             ))}
 
-            <AuthButton customColor="red">Logout</AuthButton>
+            <AuthButton onClick={handleUserLogOut} customColor="red">Logout</AuthButton>
         </div>
     );
 };

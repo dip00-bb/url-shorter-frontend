@@ -30,12 +30,13 @@ export const apiSlice = createApi({
             })
         }),
 
-        handleLogOut:build.mutation({
+        handleLogOut:build.mutation<void,void> ({
             query:()=>({
                 url:'/auth/logout',
                 method:'POST'
             })
-        })
+        }),
+
 
     })
 })
