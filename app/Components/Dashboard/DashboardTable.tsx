@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React from "react";
+
 import { Copy, Trash2 } from "lucide-react";
 
 interface UrlItem {
@@ -21,6 +21,10 @@ interface UrlItem {
 }
 
 const DashboardTable = () => {
+
+
+
+
   const urls: UrlItem[] = [
     {
       originalUrl: "https://example.com/very-long-url-1",
