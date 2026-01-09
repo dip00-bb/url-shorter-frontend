@@ -10,7 +10,7 @@ interface ButtonProps {
 }
 
 const AuthButton: React.FC<ButtonProps> = ({ children, href, onClick, customColor }) => {
-  const className = 'px-6 py-2.5 rounded-md font-medium text-black transition-opacity duration-200 hover:opacity-90';
+  const className = 'px-6 py-2.5 rounded-md font-medium text-black transition-opacity duration-200 hover:opacity-90 cursor-pointer';
   const style = { backgroundColor: customColor ? `${customColor}` :  `var(--primary)` };
 
   if (href) {

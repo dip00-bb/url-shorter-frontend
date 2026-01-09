@@ -1,7 +1,6 @@
 "use client"
 import React, { ReactNode, useEffect, useState } from 'react';
 import { AuthContext, User } from './AuthContext';
-import { useRouter } from 'next/navigation';
 import { axiosInstence } from '../Axios/axiosInstance';
 
 
@@ -9,7 +8,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     // const router = useRouter()
     const [user, setUser] = useState<null | User>(null)
     const [isLoading, setIsLoading] = useState(true)
-
+    
     const login = (userData: User) => {
         setUser(userData)
         setIsLoading(false)

@@ -3,10 +3,10 @@
 import Link from "next/link";
 import AuthButton from "./AuthButton";
 import { useHandleLogOutMutation } from "@/lib/features/api/apiSlice";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "../Context/AuthContext";
+
 
 
 interface NavLinks {
@@ -18,7 +18,7 @@ interface NavLinks {
 const NavLinks = ({ mobile = false, onClick }: NavLinks) => {
 
 
-    const links = ['Home', 'Dashboard', 'CreateURL'];
+    const links = ['Home', 'Dashboard'];
 
     const router = useRouter()
     const [handleLogOut, { isError, isSuccess }] = useHandleLogOutMutation()

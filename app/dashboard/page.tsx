@@ -5,6 +5,7 @@ import UrlInput from '../Components/Hero/UrlInput';
 import HeroTitle from '../Components/Hero/HeroTitle';
 import Profile from '../Components/Dashboard/Profile';
 import Button from '../Components/CommonButton/CommonButton';
+import Link from 'next/link';
 
 const Dashboard = () => {
     return (
@@ -41,7 +42,9 @@ const Dashboard = () => {
                     </div>
 
                     <div>
-                        <Button>Logout</Button>
+                        <Link href={'/'}>
+                            <Button>Back Home</Button>
+                        </Link>
                     </div>
                 </div>
             </div>

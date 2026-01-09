@@ -1,11 +1,12 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Logo = () => {
     return (
         <div>
-            <div className="text-2xl font-bold text-(--primary)" style={{ color: 'var(--primary)' }}>
+            <Link href={'/'} className="text-2xl font-bold text-(--primary)" style={{ color: 'var(--primary)' }}>
                 Shortify
-            </div>
+            </Link>
         </div>
     );
 };

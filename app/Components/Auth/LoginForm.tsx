@@ -1,11 +1,11 @@
 "use client"
 
-import { use, useEffect, useState } from "react";
-import { AuthContext } from "../Context/AuthContext";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useHandleLoginMutation } from "@/lib/features/api/apiSlice";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useAuthContext from "../Hook/useAuthContext";
 
 const LoginForm = () => {
 
@@ -13,12 +13,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const authContext = use(AuthContext);
-
-  if (!authContext) {
-    throw new Error("login Form must be used within AuthProvider");
-  }
-  const { login } = authContext
+  const { login } = useAuthContext()
 
 
   const [handleLogin, { data, isError, isLoading, isSuccess, error }] = useHandleLoginMutation()

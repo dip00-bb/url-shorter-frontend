@@ -1,23 +1,17 @@
 "use client"
 
 import { useHandleRegisterMutation } from "@/lib/features/api/apiSlice";
-import { use, useEffect, useState } from "react";
-import { AuthContext } from "../Context/AuthContext";
+import {useEffect, useState } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import useAuthContext from "../Hook/useAuthContext";
 
 
 
 const RegisterForm = () => {
-  const router=useRouter()
-  const authContext = use(AuthContext);
-
-  if (!authContext) {
-    throw new Error("RegisterForm must be used within AuthProvider");
-  }
-
-  const { login } = authContext
+  const router = useRouter()
+  const { login } = useAuthContext()
   const [handleRegister, { data, isError, isLoading, isSuccess, error }] = useHandleRegisterMutation()
 
   const [username, setName] = useState("");
@@ -37,7 +31,7 @@ const RegisterForm = () => {
     if (isError) {
       toast.error("Something went wrong. Please try again.", { id: "register" });
     }
-  }, [isLoading, isSuccess, isError, data, error, login,router]);
+  }, [isLoading, isSuccess, isError, data, error, login, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

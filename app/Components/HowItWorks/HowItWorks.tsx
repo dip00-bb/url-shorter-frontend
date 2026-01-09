@@ -3,7 +3,7 @@ import { UserPlus, Link, BarChart3 } from "lucide-react";
 
 const HowItWorks = () => {
   return (
-    <section className="py-16">
+    <section>
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12 text-(--primary)">
           How It Works

@@ -5,6 +5,8 @@ import Logo from './Logo';
 import NavLinks from './NavLinks';
 import MobileMenu from './MobileMenu';
 import MenuButton from './MenuButton';
+import useAuthContext from '../Hook/useAuthContext';
+import GuestNavLinks from './GuestNavLink';
 // import GuestNavLinks from './GuestNavLink';
 
 
@@ -13,9 +15,11 @@ import MenuButton from './MenuButton';
 
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
 
-  // const [user,setUser]=useState(false)
+  const { user } = useAuthContext()
+
+
+  const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
@@ -31,8 +35,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Logo />
-            {/* {user?<NavLinks/> :<GuestNavLinks/> } */}
-            <NavLinks />
+            {user ? <NavLinks /> : <GuestNavLinks />}
             <MenuButton isOpen={isOpen} onClick={toggleMenu} />
           </div>
         </div>
