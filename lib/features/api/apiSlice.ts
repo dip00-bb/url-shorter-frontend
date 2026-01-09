@@ -7,10 +7,12 @@ export const apiSlice = createApi({
         baseUrl: 'http://localhost:5000/api/',
         credentials: 'include'
     }),
+    tagTypes: ["Urls"],
 
     endpoints: (build) => ({
         getUserUrl: build.query({
             query: (userId: string) => `/url/urls/${userId}`,
+            providesTags: ["Urls"],
         }),
 
         handleRegister: build.mutation({
@@ -41,13 +43,28 @@ export const apiSlice = createApi({
             query: (data: string) => ({
                 url: '/url/generate-url',
                 method: 'POST',
-                body: data
-            })
+                body: { url: data },
+
+            }),
+            invalidatesTags: ["Urls"],
+        }),
+
+        handleDeleteShortLink: build.mutation({
+            query: (linkId: string) => ({
+                url: `/url/delete-url/${linkId}`,
+                method: 'DELETE',
+
+            }),
+            invalidatesTags: ["Urls"],
         })
-
-
 
     })
 })
 
-export const { useGetUserUrlQuery, useHandleRegisterMutation, useHandleLoginMutation, useHandleLogOutMutation, useHandleGenrateShortLinkMutation } = apiSlice
+export const { useGetUserUrlQuery,
+    useHandleRegisterMutation,
+    useHandleLoginMutation,
+    useHandleLogOutMutation,
+    useHandleGenrateShortLinkMutation,
+    useHandleDeleteShortLinkMutation
+} = apiSlice

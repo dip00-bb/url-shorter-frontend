@@ -9,67 +9,51 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetUserUrlQuery } from "@/lib/features/api/apiSlice";
+import { useGetUserUrlQuery, useHandleDeleteShortLinkMutation } from "@/lib/features/api/apiSlice";
 
 import { Copy, Trash2 } from "lucide-react";
 import useAuthContext from "../Hook/useAuthContext";
 
-interface UrlItem {
-  originalUrl: string;
-  shortCode: string;
-  shortUrl: string;
-  clicks: number;
-  createdAt: string;
-}
+
 
 const DashboardTable = () => {
 
 
+
+  const [handleDeleteShortLink,] = useHandleDeleteShortLinkMutation()
+
+
+
+
   const handleCopy = (shortUrl: string) => {
     navigator.clipboard.writeText(shortUrl);
-    alert("Copied to clipboard!"); // Replace with toast in real app
+    alert("Copied to clipboard!");
   };
 
-  const handleDelete = (shortCode: string) => {
-    console.log("Delete URL:", shortCode);
-    // TODO: Call API to delete
+  const handleDelete = (urlId: string) => {
+    handleDeleteShortLink(urlId)
   };
 
 
   const { user } = useAuthContext()
-  const userId = user?.id
 
+
+  const userId = user?.id
   const {
     data,
-    isLoading,
-    isError,
+    refetch
 
   } = useGetUserUrlQuery(userId!, {
     skip: !userId,
   });
 
 
+
   const urls = data?.urls;
+  console.log(urls)
 
-
-
-  let content;
   let tableContent;
-  if (isLoading) {
-    content = <>
-      <div>
 
-      </div>
-    </>
-  }
-
-  if (isError) {
-    content = <>
-      <div>
-        <p>Failed To Load data . Please Refresh</p>
-      </div>
-    </>
-  }
 
   if (data) {
     tableContent = <>
@@ -79,7 +63,7 @@ const DashboardTable = () => {
           className="bg-(--background-color) h-15"
         >
           <TableCell className="text-(--primary)">{url.shortId}</TableCell>
-          <TableCell className="flex items-center gap-2 text-(--primary)">
+          <TableCell className="flex items-center gap-2 py-5 text-(--primary)">
             {`http://localhost:5000/${url.shortId}`}
             <button onClick={() => handleCopy(`http://localhost:5000/${url.shortId}`)}>
               <Copy className=" text-(--primary) cursor-pointer" />
@@ -88,7 +72,7 @@ const DashboardTable = () => {
           <TableCell className="text-(--primary) gap-2">{url.visitHistory.length}</TableCell>
           <TableCell className="text-(--primary) gap-2">{url.createdAt}</TableCell>
           <TableCell className="">
-            <button onClick={() => handleDelete(url.shortCode)}>
+            <button onClick={() => handleDelete(url._id)}>
               <Trash2 className=" text-red-500 cursor-pointer" />
             </button>
           </TableCell>
@@ -100,7 +84,7 @@ const DashboardTable = () => {
 
   return (
     <div
-      className="overflow-x-auto border px-4 py-3 "
+      className="overflow-x-auto border px-4 py-3 lg:h-145 overflow-scroll"
       style={{ borderColor: "var(--surface-border)" }}
     >
       <Table>

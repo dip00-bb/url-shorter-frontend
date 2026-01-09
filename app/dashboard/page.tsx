@@ -31,7 +31,7 @@ const Dashboard = () => {
 
 
             <div className="lg:col-span-3 py-3 px-4 border border-(--surface-border) ">
-                <div className="flex flex-col justify-between h-full">
+                <div className="flex flex-col justify-between h-full gap-y-10">
 
                     <Profile />
 
