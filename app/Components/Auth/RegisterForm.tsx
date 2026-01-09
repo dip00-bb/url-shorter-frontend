@@ -8,8 +8,7 @@ import { toast } from "sonner";
 
 const RegisterForm = () => {
   const authContext = use(AuthContext);
-  
-  // Null check BEFORE destructuring
+
   if (!authContext) {
     throw new Error("RegisterForm must be used within AuthProvider");
   }

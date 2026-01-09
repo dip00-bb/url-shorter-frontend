@@ -1,14 +1,25 @@
 "use client"
 
-import { useState } from "react";
+import { use, useState } from "react";
+import { axiosInstence } from "../Axios/axiosInstance";
+import { AuthContext } from "../Context/AuthContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const authContext = use(AuthContext);
+
+  if (!authContext) {
+    throw new Error("RegisterForm must be used within AuthProvider");
+  }
+  const { login } = authContext
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    const response = await axiosInstence.post('/api/auth/login', { email, password })
+    login(response.data)
+
   };
 
   return (
