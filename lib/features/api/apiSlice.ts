@@ -20,10 +20,24 @@ export const apiSlice = createApi({
                 method:'POST',
                 body:data
             })
+        }),
 
+        handleLogin:build.mutation({
+            query:(data:{email:string,password:string})=>({
+                url:'/auth/login',
+                method:'POST',
+                body:data
+            })
+        }),
+
+        handleLogOut:build.mutation({
+            query:()=>({
+                url:'/auth/logout',
+                method:'POST'
+            })
         })
 
     })
 })
 
-export const { useGetUserUrlQuery,useHandleRegisterMutation } = apiSlice
+export const { useGetUserUrlQuery,useHandleRegisterMutation,useHandleLoginMutation,useHandleLogOutMutation } = apiSlice

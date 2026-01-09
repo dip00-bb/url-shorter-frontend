@@ -4,9 +4,13 @@ import { useHandleRegisterMutation } from "@/lib/features/api/apiSlice";
 import { use, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { toast } from "sonner";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 
 
 const RegisterForm = () => {
+  const router=useRouter()
   const authContext = use(AuthContext);
 
   if (!authContext) {
@@ -27,12 +31,13 @@ const RegisterForm = () => {
     if (isSuccess && data) {
       toast.success("Registered Successfully", { id: "register" });
       login(data);
+      router.push('/login')
+
     }
     if (isError) {
       toast.error("Something went wrong. Please try again.", { id: "register" });
-      console.error("Registration error:", error);
     }
-  }, [isLoading, isSuccess, isError, data, error,login]);
+  }, [isLoading, isSuccess, isError, data, error, login,router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -127,7 +132,15 @@ const RegisterForm = () => {
         >
           Register
         </button>
+        <p className="mt-4 text-sm text-white text-center">
+          Already have an account?{" "}
+          <Link href="/login" style={{ color: "var(--primary)" }} className="underline">
+            login
+          </Link>
+        </p>
       </form>
+
+
     </div>
   );
 };

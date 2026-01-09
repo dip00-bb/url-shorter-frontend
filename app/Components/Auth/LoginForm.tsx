@@ -1,24 +1,49 @@
 "use client"
 
-import { use, useState } from "react";
-import { axiosInstence } from "../Axios/axiosInstance";
+import { use, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
+import Link from "next/link";
+import { useHandleLoginMutation } from "@/lib/features/api/apiSlice";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+
+  const router=useRouter()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const authContext = use(AuthContext);
 
   if (!authContext) {
-    throw new Error("RegisterForm must be used within AuthProvider");
+    throw new Error("login Form must be used within AuthProvider");
   }
   const { login } = authContext
 
+
+  const [handleLogin, { data, isError, isLoading, isSuccess, error }] = useHandleLoginMutation()
+
+
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Creating account...", { id: "login" });
+    }
+    if (isSuccess && data) {
+      toast.success("Registered Successfully", { id: "login" });
+      login(data);
+      router.push('/')
+
+    }
+    if (isError) {
+      toast.error("Something went wrong. Please try again.", { id: "login" });
+    }
+  }, [isLoading, isSuccess, isError, data, error, login,router]);
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await axiosInstence.post('/api/auth/login', { email, password })
-    login(response.data)
+
+    await handleLogin({ email, password }).unwrap()
 
   };
 
@@ -89,9 +114,9 @@ const LoginForm = () => {
 
         <p className="mt-4 text-sm text-white text-center">
           Don&apos;t have an account?{" "}
-          <a href="/register" style={{ color: "var(--primary)" }} className="underline">
+          <Link href="/register" style={{ color: "var(--primary)" }} className="underline">
             Register
-          </a>
+          </Link>
         </p>
       </form>
     </div>
