@@ -1,16 +1,47 @@
 "use client"
 
-import { useState } from "react";
+import { useHandleRegisterMutation } from "@/lib/features/api/apiSlice";
+import { use, useEffect, useState } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import { toast } from "sonner";
+
 
 const RegisterForm = () => {
-  const [name, setName] = useState("");
+  const authContext = use(AuthContext);
+  
+  // Null check BEFORE destructuring
+  if (!authContext) {
+    throw new Error("RegisterForm must be used within AuthProvider");
+  }
+
+  const { login } = authContext
+  const [handleRegister, { data, isError, isLoading, isSuccess, error }] = useHandleRegisterMutation()
+
+  const [username, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Creating account...", { id: "register" });
+    }
+    if (isSuccess && data) {
+      toast.success("Registered Successfully", { id: "register" });
+      login(data);
+    }
+    if (isError) {
+      toast.error("Something went wrong. Please try again.", { id: "register" });
+      console.error("Registration error:", error);
+    }
+  }, [isLoading, isSuccess, isError, data, error,login]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: connect to your API
-    console.log({ name, email, password });
+    try {
+      await handleRegister({ username, email, password }).unwrap();
+    } catch (err) {
+      console.error("Failed to register:", err);
+    }
   };
 
   return (
@@ -34,7 +65,7 @@ const RegisterForm = () => {
           </label>
           <input
             type="text"
-            value={name}
+            value={username}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter your name"
             required
@@ -89,7 +120,7 @@ const RegisterForm = () => {
 
         <button
           type="submit"
-          className="w-full py-3 rounded-lg font-semibold transition-all"
+          className="w-full py-3 rounded-lg font-semibold transition-all cursor-pointer"
           style={{
             backgroundColor: "var(--primary)",
             color: "var(--background-color)",

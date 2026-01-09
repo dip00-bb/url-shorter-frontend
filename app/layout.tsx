@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxWraper from "./Wraper/ReduxWraper";
 import AuthContextWraper from "./Wraper/AuthContextWraper";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,7 @@ export default function RootLayout({
           </ReduxWraper>
         </AuthContextWraper>
 
-
+        <Toaster />
       </body>
     </html>
   );

@@ -8,8 +8,7 @@ const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: connect to your API
-    console.log({ email, password });
+    
   };
 
   return (

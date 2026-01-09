@@ -11,8 +11,19 @@ export const apiSlice = createApi({
     endpoints: (build) => ({
         getUserUrl: build.query({
             query: () => '/urls',
+        }),
+
+        handleRegister:build.mutation({
+
+            query:(data:{email:string,username:string,password:string})=>({
+                url:'/auth/register',
+                method:'POST',
+                body:data
+            })
+
         })
+
     })
 })
 
-export const { useGetUserUrlQuery } = apiSlice
+export const { useGetUserUrlQuery,useHandleRegisterMutation } = apiSlice

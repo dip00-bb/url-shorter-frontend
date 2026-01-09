@@ -1,12 +1,16 @@
 "use client"
 
 import { createContext } from "react"
-
+export interface User {
+    id: string;
+    email: string;
+    username: string;
+}
 export interface AuthContextType {
-    user: object | null;
-    login: (user: object) => void;
+    user: User| null;
+    login: (user: User) => void;
     logout: () => void;
     isLoading: boolean;
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null)
+export const AuthContext = createContext<AuthContextType | null >(null)
