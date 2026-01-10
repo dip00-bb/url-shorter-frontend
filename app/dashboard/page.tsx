@@ -1,11 +1,9 @@
 import React from 'react';
 import DashboardTable from '../Components/Dashboard/DashboardTable';
-import DashboardCard from '../Components/Dashboard/DashboardCard';
 import UrlInput from '../Components/Hero/UrlInput';
 import HeroTitle from '../Components/Hero/HeroTitle';
 import Profile from '../Components/Dashboard/Profile';
-import Button from '../Components/CommonButton/CommonButton';
-import Link from 'next/link';
+
 
 const Dashboard = () => {
     return (
@@ -35,17 +33,7 @@ const Dashboard = () => {
 
                     <Profile />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4">
-                        <DashboardCard count="5">Total Link</DashboardCard>
-                        <DashboardCard count="5">Active Link</DashboardCard>
-                        <DashboardCard count="5">Total Click</DashboardCard>
-                    </div>
 
-                    <div>
-                        <Link href={'/'}>
-                            <Button>Back Home</Button>
-                        </Link>
-                    </div>
                 </div>
             </div>
 

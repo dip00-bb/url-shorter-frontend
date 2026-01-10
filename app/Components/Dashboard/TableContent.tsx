@@ -2,7 +2,7 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { Copy, Trash2 } from 'lucide-react';
 import React from 'react';
 
-interface URL {
+export interface URL {
     _v: number,
     _id: string,
     createdAt: string,

@@ -14,6 +14,7 @@ import useAuthContext from "../Hook/useAuthContext";
 import TableContent from "./TableContent";
 
 
+
 const DashboardTable = () => {
 
 
@@ -42,8 +43,6 @@ const DashboardTable = () => {
     skip: !userId,
   });
   const urls = data?.urls;
-
-  
 
 
 
