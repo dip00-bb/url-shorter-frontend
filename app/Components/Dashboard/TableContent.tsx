@@ -31,8 +31,8 @@ const TableContent = ({urls,handleCopy,handleDelete}:TableContent) => {
                 >
                     <TableCell className="text-(--primary)">{url.shortId}</TableCell>
                     <TableCell className="flex items-center gap-2 py-5 text-(--primary)">
-                        {`http://localhost:5000/${url.shortId}`}
-                        <button onClick={() => handleCopy(`http://localhost:5000/${url.shortId}`)}>
+                        {`https://url-shortner-backend-mocha.vercel.app/${url.shortId}`}
+                        <button onClick={() => handleCopy(`https://url-shortner-backend-mocha.vercel.app/${url.shortId}`)}>
                             <Copy className=" text-(--primary) cursor-pointer" />
                         </button>
                     </TableCell>

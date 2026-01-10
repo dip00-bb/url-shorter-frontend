@@ -21,10 +21,10 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Creating account...", { id: "login" });
+      toast.loading("Logging...", { id: "login" });
     }
     if (isSuccess && data) {
-      toast.success("Registered Successfully", { id: "login" });
+      toast.success("Logged in Successfully", { id: "login" });
       login(data);
       router.push('/')
 

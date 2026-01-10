@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const axiosInstence = axios.create({
-    baseURL: 'http://localhost:5000/',
+    baseURL: 'https://url-shortner-backend-mocha.vercel.app/',
     withCredentials: true
 });
