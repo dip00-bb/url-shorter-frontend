@@ -14,7 +14,18 @@ import { useGetUserUrlQuery, useHandleDeleteShortLinkMutation } from "@/lib/feat
 import { Copy, Trash2 } from "lucide-react";
 import useAuthContext from "../Hook/useAuthContext";
 
-
+interface URL{
+  _v:number,
+  _id:string,
+  createdAt:string,
+  redirectURL:string,
+  shortId:string,
+  updatedAt:string,
+  visitHistory:[
+      timestamp:number,
+      _id:string
+  ]
+}
 
 const DashboardTable = () => {
 
@@ -41,7 +52,6 @@ const DashboardTable = () => {
   const userId = user?.id
   const {
     data,
-    refetch
 
   } = useGetUserUrlQuery(userId!, {
     skip: !userId,
@@ -57,7 +67,7 @@ const DashboardTable = () => {
 
   if (data) {
     tableContent = <>
-      {urls?.map((url) => (
+      {urls?.map((url:URL) => (
         <TableRow
           key={url.shortId}
           className="bg-(--background-color) h-15"
