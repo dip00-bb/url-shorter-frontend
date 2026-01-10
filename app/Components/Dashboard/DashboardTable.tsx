@@ -4,37 +4,21 @@ import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { useGetUserUrlQuery, useHandleDeleteShortLinkMutation } from "@/lib/features/api/apiSlice";
 
-import { Copy, Trash2 } from "lucide-react";
 import useAuthContext from "../Hook/useAuthContext";
+import TableContent from "./TableContent";
 
-interface URL{
-  _v:number,
-  _id:string,
-  createdAt:string,
-  redirectURL:string,
-  shortId:string,
-  updatedAt:string,
-  visitHistory:[
-      timestamp:number,
-      _id:string
-  ]
-}
 
 const DashboardTable = () => {
 
 
 
-  const [handleDeleteShortLink,] = useHandleDeleteShortLinkMutation()
-
-
-
+  const [handleDeleteShortLink] = useHandleDeleteShortLinkMutation()
 
   const handleCopy = (shortUrl: string) => {
     navigator.clipboard.writeText(shortUrl);
@@ -50,45 +34,22 @@ const DashboardTable = () => {
 
 
   const userId = user?.id
+
+
   const {
     data,
-
   } = useGetUserUrlQuery(userId!, {
     skip: !userId,
   });
-
-
-
   const urls = data?.urls;
-  console.log(urls)
+
+  
+
+
 
   let tableContent;
-
-
   if (data) {
-    tableContent = <>
-      {urls?.map((url:URL) => (
-        <TableRow
-          key={url.shortId}
-          className="bg-(--background-color) h-15"
-        >
-          <TableCell className="text-(--primary)">{url.shortId}</TableCell>
-          <TableCell className="flex items-center gap-2 py-5 text-(--primary)">
-            {`http://localhost:5000/${url.shortId}`}
-            <button onClick={() => handleCopy(`http://localhost:5000/${url.shortId}`)}>
-              <Copy className=" text-(--primary) cursor-pointer" />
-            </button>
-          </TableCell>
-          <TableCell className="text-(--primary) gap-2">{url.visitHistory.length}</TableCell>
-          <TableCell className="text-(--primary) gap-2">{url.createdAt}</TableCell>
-          <TableCell className="">
-            <button onClick={() => handleDelete(url._id)}>
-              <Trash2 className=" text-red-500 cursor-pointer" />
-            </button>
-          </TableCell>
-        </TableRow>
-      ))}
-    </>
+    tableContent = <TableContent urls={urls} handleCopy={handleCopy} handleDelete={handleDelete} />
   }
 
 

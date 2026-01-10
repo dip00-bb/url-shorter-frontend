@@ -1,4 +1,11 @@
+"use client"
+import Link from "next/link";
+import useAuthContext from "../Hook/useAuthContext";
+
 const CTASection = () => {
+ 
+  const {user}=useAuthContext()
+
   return (
     <section
       className="py-20 flex flex-col items-center justify-center text-center px-4"
@@ -13,8 +20,8 @@ const CTASection = () => {
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4">
-        <a
-          href="/register"
+        <Link
+          href={`${user ? '/dashboard':"/register"}`}
           className="px-6 py-3 rounded-lg font-semibold transition-all duration-300"
           style={{
             backgroundColor: "var(--primary)",
@@ -22,10 +29,10 @@ const CTASection = () => {
           }}
         >
           Get Started Free
-        </a>
+        </Link>
 
-        <a
-          href="/login"
+        <Link
+          href={`${user ? '/dashboard':"/login"}`}
           className="px-6 py-3 rounded-lg font-semibold border transition-all duration-300"
           style={{
             borderColor: "var(--primary)",
@@ -33,7 +40,7 @@ const CTASection = () => {
           }}
         >
           Login
-        </a>
+        </Link>
       </div>
     </section>
   );
