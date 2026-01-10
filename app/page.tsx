@@ -8,13 +8,13 @@ import Footer from './Components/Footer/Footer';
 
 const Home = () => {
   return (
-    <div  style={{ backgroundColor: "var(--background-color)" }}>
-      <Navbar/>
-      <Hero/>
-      <HowItWorks/>
-      <Features/>
-      <CTASection/>
-      <Footer/>
+    <div style={{ backgroundColor: "var(--background-color)" }}>
+      <Navbar />
+      <Hero />
+      <HowItWorks />
+      <Features />
+      <CTASection />
+      <Footer />
     </div>
   );
 };

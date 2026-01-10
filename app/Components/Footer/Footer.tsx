@@ -15,14 +15,6 @@ const Footer = () => {
           </h1>
         </div>
 
-        {/* Links */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 text-white">
-          <Link href="/" className="hover:underline">Home</Link>
-          <Link href="#how-it-works" className="hover:underline">How It Works</Link>
-          <Link href="#features" className="hover:underline">Features</Link>
-          <Link href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</Link>
-        </div>
-
         {/* Copyright */}
         <div className="text-sm text-white">
           © 2026 Shortly. All rights reserved.
