@@ -12,7 +12,7 @@ const UrlInput = () => {
   const [url, setUrl] = useState('');
   const router = useRouter()
   const { user } = useAuthContext()
-  const [handleGenrateShortLink, { data, isError, isSuccess, }] = useHandleGenrateShortLinkMutation()
+  const [handleGenrateShortLink, { data, isError, error, isSuccess, }] = useHandleGenrateShortLinkMutation()
 
 
 
@@ -21,12 +21,13 @@ const UrlInput = () => {
     if (isSuccess && data) {
       toast(data.message)
     }
-    if (isError) {
-      toast("something went wrong try agin.")
+    
+    if (error && 'data' in error) {
+      const errData = error.data as { message?: string };
+      toast.error(errData.message || "Something went wrong");
     }
 
-
-  }, [isSuccess, data, isError, router])
+  }, [isSuccess, data, isError, router, error])
 
 
   const handleGenerate = async () => {
@@ -42,6 +43,8 @@ const UrlInput = () => {
       await handleGenrateShortLink(url).unwrap()
       router.push('/dashboard')
     }
+
+
   };
 
   return (
@@ -59,7 +62,7 @@ const UrlInput = () => {
           }}
 
         />
-        <Button  onClick={handleGenerate}>Generate</Button>
+        <Button onClick={handleGenerate}>Generate</Button>
       </div>
     </div>
   );

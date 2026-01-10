@@ -3,7 +3,13 @@
 
 
 :root {
-  --primary:#46ec13;
-  --background-color:#111d0f;
-  --surface-border:#3f6732;
+  --primary: #2dd4bf;         
+  --background-color: #0f1f1c; 
+  --surface-border: #2f4f4a;
+}
+
+
+
+* {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
